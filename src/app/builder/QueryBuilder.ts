@@ -28,21 +28,26 @@ class QueryBuilder<T> {
   filter() {
     const queryObject = { ...this.query };
 
-    const excludeField = ["search", "sortBy", "sortOrder", "limit", "page", "fields"];
+    const excludeField = ["search", "sortBy", "sortOrder", "limit", "page"];
 
     excludeField.forEach((el) => delete queryObject[el]);
+
+    if (this.query.filter) {
+      queryObject.author = queryObject.filter;
+      delete queryObject.filter;
+    }
 
     this.modelQuery = this.modelQuery.find(queryObject as FilterQuery<T>);
 
     return this;
   }
 
-  sort(){
-    const sortBy = this?.query?.sortBy || 'createdAt';
+  sort() {
+    const sortBy = this?.query?.sortBy || "createdAt";
 
-    const sortOrder = this?.query?.sortOrder === 'asc' ? '' : '-';
+    const sortOrder = this?.query?.sortOrder === "asc" ? "" : "-";
 
-    const sort = `${sortOrder}${sortBy}`
+    const sort = `${sortOrder}${sortBy}`;
 
     this.modelQuery = this.modelQuery.sort(sort);
 
@@ -58,7 +63,6 @@ class QueryBuilder<T> {
 
     return this;
   }
-
 }
 
 export default QueryBuilder;

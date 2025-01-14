@@ -19,7 +19,7 @@ const getAllBlog = CatchAsync(async (req: Request, res: Response) => {
       success: true,
       message: "Get All Blog Successfull",
       data: result,
-    });
+    }); 
   })
 
 const getSingleBlog = CatchAsync(async (req: Request, res: Response) => {
