@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ErrorRequestHandler } from "express";
+import config from "../config";
 
 const GlobalErrorHandler: ErrorRequestHandler = (err, req, res, next): any => {
   const statusCode = 500;
@@ -9,6 +10,7 @@ const GlobalErrorHandler: ErrorRequestHandler = (err, req, res, next): any => {
     success: false,
     message,
     error: err,
+    stack: config.NODE_ENV === 'development' ? err?.stack : null
   });
 };
 

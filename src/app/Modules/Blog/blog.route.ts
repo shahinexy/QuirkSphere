@@ -7,12 +7,20 @@ const router = express.Router();
 
 router.post(
   "/",
-  ValidateRequest(BlogValidetions.blogSchemaValidation),
+  ValidateRequest(BlogValidetions.createBlogSchemaValidation),
   BlogControllers.createBlog
 );
 
 router.get("/", BlogControllers.getAllBlog);
 
 router.get("/:id", BlogControllers.getSingleBlog);
+
+router.patch(
+  "/:id",
+  ValidateRequest(BlogValidetions.updateBlogSchemaValidation),
+  BlogControllers.updateBlog
+);
+
+router.delete("/:id", BlogControllers.deleteBlog);
 
 export const BlogRouters = router;

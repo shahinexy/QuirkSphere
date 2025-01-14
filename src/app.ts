@@ -1,8 +1,8 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
-import { BlogRouters } from "./app/Modules/Blog/blog.route";
 import GlobalErrorHandler from "./app/middleware/globalErrorHandler";
 import NotFound from "./app/middleware/notFound";
+import router from "./app/router";
 
 const app: Application = express();
 
@@ -10,7 +10,7 @@ const app: Application = express();
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/blogs", BlogRouters);
+app.use("/api", router);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
