@@ -13,7 +13,7 @@ const createBlog = CatchAsync(async (req: Request, res: Response) => {
   })
 
 const getAllBlog = CatchAsync(async (req: Request, res: Response) => {
-    const result = await BlogServices.getAllBlogFromDB();
+    const result = await BlogServices.getAllBlogFromDB(req.query);
   
     res.status(200).json({
       success: true,
@@ -39,18 +39,18 @@ const updateBlog = CatchAsync(async (req: Request, res: Response) => {
   
     res.status(200).json({
       success: true,
-      message: "Get Single Blog  Successfull",
+      message: "Update Blog  Successfull",
       data: result,
     });
   })
 
 const deleteBlog = CatchAsync(async (req: Request, res: Response) => {
     const { id } = req.params;
-    const result = await BlogServices.getSingleBlogFromDB(id);
+    const result = await BlogServices.deleteBlogFromDB(id);
   
     res.status(200).json({
       success: true,
-      message: "Get Single Blog  Successfull",
+      message: "Delete Blog  Successfull",
       data: result,
     });
   })
