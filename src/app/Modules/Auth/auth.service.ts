@@ -18,11 +18,6 @@ const registerUserIntoDB = async (payload: TRegisterUser) => {
   return result;
 };
 
-const getAllUserFromDB = async () => {
-  const result = await UserRegisterModel.find();
-  return result;
-};
-
 const loginUser = async (payload: TRegisterUser) => {
 
   // check if user exist
@@ -64,6 +59,5 @@ const loginUser = async (payload: TRegisterUser) => {
 
 export const UserServices = {
   registerUserIntoDB,
-  getAllUserFromDB,
   loginUser,
 };

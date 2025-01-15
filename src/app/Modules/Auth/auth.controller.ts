@@ -11,16 +11,6 @@ const registerUser = CatchAsync(async (req, res) => {
   });
 });
 
-const getAllUser = CatchAsync(async (req, res) => {
-  const result = await UserServices.getAllUserFromDB();
-
-  res.status(200).json({
-    success: true,
-    message: "Get all user Successfully",
-    data: result,
-  });
-});
-
 const LoginUser = CatchAsync(async (req, res) => {
   const result = await UserServices.loginUser(req.body);
 
@@ -33,6 +23,5 @@ const LoginUser = CatchAsync(async (req, res) => {
 
 export const UserControllers = {
   registerUser,
-  getAllUser,
   LoginUser,
 };
