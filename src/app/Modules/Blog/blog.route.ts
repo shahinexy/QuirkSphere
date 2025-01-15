@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.post(
   "/",
+  Auth('user'),
   ValidateRequest(BlogValidetions.createBlogSchemaValidation),
   BlogControllers.createBlog
 );
@@ -18,6 +19,7 @@ router.get("/:id", BlogControllers.getSingleBlog);
 
 router.patch(
   "/:id",
+  Auth('user'),
   ValidateRequest(BlogValidetions.updateBlogSchemaValidation),
   BlogControllers.updateBlog
 );

@@ -26,7 +26,27 @@ const getSingleBlogFromDB = async (id: string) => {
   return result;
 };
 
-const updateBlogFromDB = async (id: string, payload: Partial<TBlog>) => {
+const updateBlogFromDB = async (id: string, payload: Partial<TBlog>,  userData: {
+  userEmail: string;
+  role: string;
+}) => {
+
+    // check if blog exists
+    const isBlogExists = await BlogModel.findById(id);
+
+    if (!isBlogExists) {
+      throw new Error("Blog Not Found");
+    }
+  
+    // check if blog author
+    const blogAuthor = await UserRegisterModel.findById(isBlogExists.author);
+  
+    const isAuthor = blogAuthor?.email === userData.userEmail;
+  
+    if (!isAuthor) {
+      throw new Error("You are not author of this blog");
+    }
+
   const result = await BlogModel.findByIdAndUpdate(id, payload, { new: true });
   return result;
 };
