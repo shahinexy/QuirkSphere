@@ -3,9 +3,9 @@ import CatchAsync from "../utils/catchAsync";
 import { UserRegisterModel } from "../Modules/Auth/auth.model";
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import config from "../config";
-import bcrypt from 'bcrypt';
+import { TUserRole } from "../Modules/Auth/auth.intarface";
 
-const Auth = () => {
+const Auth = (...requiredRole: TUserRole[]) => {
   return CatchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
 
@@ -33,7 +33,12 @@ const Auth = () => {
       throw new Error("This User is Blocked");
     }
 
-    req.user = decoded
+    // check role
+    if(requiredRole && !requiredRole.includes(role)){
+      throw new Error("You are not authorize");
+    }
+
+    req.user = decoded as JwtPayload;
 
     next();
   });

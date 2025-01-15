@@ -12,7 +12,7 @@ router.post(
   UserControllers.registerUser
 );
 
-router.get('/', Auth(), UserControllers.getAllUser)
+router.get('/', Auth('admin'), UserControllers.getAllUser)
 
 router.post(
   "/login",

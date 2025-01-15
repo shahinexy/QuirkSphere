@@ -2,6 +2,7 @@ import express from "express";
 import { BlogControllers } from "./blog.controller";
 import ValidateRequest from "../../middleware/validateRequest";
 import { BlogValidetions } from "./blog.validation";
+import Auth from "../../middleware/auth";
 
 const router = express.Router();
 
@@ -21,6 +22,6 @@ router.patch(
   BlogControllers.updateBlog
 );
 
-router.delete("/:id", BlogControllers.deleteBlog);
+router.delete("/:id", Auth('user', 'admin'), BlogControllers.deleteBlog);
 
 export const BlogRouters = router;

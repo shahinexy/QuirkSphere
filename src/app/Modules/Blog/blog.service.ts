@@ -1,4 +1,6 @@
 import QueryBuilder from "../../builder/QueryBuilder";
+import { USER_ROLE } from "../Auth/auth.constant";
+import { UserRegisterModel } from "../Auth/auth.model";
 import { TBlog } from "./blog.interface";
 import { BlogModel } from "./blog.model";
 
@@ -29,7 +31,29 @@ const updateBlogFromDB = async (id: string, payload: Partial<TBlog>) => {
   return result;
 };
 
-const deleteBlogFromDB = async (id: string) => {
+const deleteBlogFromDB = async (
+  id: string,
+  payload: {
+    userEmail: string;
+    role: string;
+  }
+) => {
+  // check if blog exists
+  const isBlogExists = await BlogModel.findById(id);
+
+  if (!isBlogExists) {
+    throw new Error("Blog Not Found");
+  }
+
+  // check if blog author
+  const blogAuthor = await UserRegisterModel.findById(isBlogExists.author);
+
+  const isAuthor = blogAuthor?.email === payload.userEmail;
+
+  if (!isAuthor && payload.role !== USER_ROLE.admin) {
+    throw new Error("You are not author of this blog");
+  }
+
   const result = await BlogModel.findByIdAndDelete(id);
   return result;
 };
