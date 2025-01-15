@@ -12,7 +12,7 @@ const createBlogIntoDB = async (payload: TBlog) => {
 const getAllBlogFromDB = async (query: Record<string, unknown>) => {
   const searchbleFields = ["title", "content"];
 
-  const blogQuery = new QueryBuilder(BlogModel.find(), query)
+  const blogQuery = new QueryBuilder(BlogModel.find().populate("author"), query)
     .search(searchbleFields)
     .filter()
     .sort();
@@ -22,30 +22,40 @@ const getAllBlogFromDB = async (query: Record<string, unknown>) => {
 };
 
 const getSingleBlogFromDB = async (id: string) => {
-  const result = await BlogModel.findById(id);
+  // check if blog exists
+  const isBlogExists = await BlogModel.findById(id);
+
+  if (!isBlogExists) {
+    throw new Error("Blog Not Found");
+  }
+
+  const result = await BlogModel.findById(id).populate("author");
   return result;
 };
 
-const updateBlogFromDB = async (id: string, payload: Partial<TBlog>,  userData: {
-  userEmail: string;
-  role: string;
-}) => {
+const updateBlogFromDB = async (
+  id: string,
+  payload: Partial<TBlog>,
+  userData: {
+    userEmail: string;
+    role: string;
+  }
+) => {
+  // check if blog exists
+  const isBlogExists = await BlogModel.findById(id);
 
-    // check if blog exists
-    const isBlogExists = await BlogModel.findById(id);
+  if (!isBlogExists) {
+    throw new Error("Blog Not Found");
+  }
 
-    if (!isBlogExists) {
-      throw new Error("Blog Not Found");
-    }
-  
-    // check if blog author
-    const blogAuthor = await UserRegisterModel.findById(isBlogExists.author);
-  
-    const isAuthor = blogAuthor?.email === userData.userEmail;
-  
-    if (!isAuthor) {
-      throw new Error("You are not author of this blog");
-    }
+  // check if blog author
+  const blogAuthor = await UserRegisterModel.findById(isBlogExists.author);
+
+  const isAuthor = blogAuthor?.email === userData.userEmail;
+
+  if (!isAuthor) {
+    throw new Error("You are not author of this blog");
+  }
 
   const result = await BlogModel.findByIdAndUpdate(id, payload, { new: true });
   return result;

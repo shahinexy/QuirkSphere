@@ -11,7 +11,6 @@ router.post(
   UserControllers.registerUser
 );
 
-
 router.post(
   "/login",
   ValidateRequest(UserValidations.userLoginValidationSchema),
