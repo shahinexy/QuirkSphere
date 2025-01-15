@@ -4,7 +4,7 @@ import config from "../config";
 
 const GlobalErrorHandler: ErrorRequestHandler = (err, req, res, next): any => {
   const statusCode = 500;
-  const message = "Something went wrong";
+  const message = err.message || "Validation error";
 
   return res.status(statusCode).json({
     success: false,
