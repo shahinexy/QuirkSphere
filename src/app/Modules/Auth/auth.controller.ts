@@ -16,7 +16,7 @@ const getAllUser = CatchAsync(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: "User Register Successfully",
+    message: "Get all user Successfully",
     data: result,
   });
 });

@@ -2,6 +2,7 @@ import express from "express";
 import { UserControllers } from "./auth.controller";
 import ValidateRequest from "../../middleware/validateRequest";
 import { UserValidations } from "./auth.validation";
+import Auth from "../../middleware/auth";
 
 const router = express.Router();
 
@@ -11,7 +12,7 @@ router.post(
   UserControllers.registerUser
 );
 
-router.get('/', UserControllers.getAllUser)
+router.get('/', Auth(), UserControllers.getAllUser)
 
 router.post(
   "/login",
