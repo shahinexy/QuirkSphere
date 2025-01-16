@@ -2,9 +2,13 @@
 
 It's a backend for a blogging platform where users can write, update, and delete their blogs. The system will have two roles: Admin and User. The Admin has special permissions to manage users and their blogs, while users can perform CRUD operations on their own blogs. The backend will include secure authentication, role-based access control, and a public API for viewing blogs with search, sort, and filter functionalities.
 
-**Live Server Link:**
+**Live Server Link:** https://quirksphere.vercel.app/
 
 **Explanation video:**
+
+**Admin login credentials:**
+Email: Shahin123@gmail.com
+Password: Shahin123
 
 ## Key Features
 
@@ -34,21 +38,50 @@ It's a backend for a blogging platform where users can write, update, and delete
 
 ## Check API Endpoint
 
-#### Authentication
+### Authentication
 
 **Register User: (POST)**
 ` /api/auth/register `
+**Request Body:**
+```
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "securepassword"
+}
+```
 
 **Login User: (POST)**
 ` /api/auth/login `
+**Request Body:**
+```
+{
+  "email": "john@example.com",
+  "password": "securepassword"
+}
+```
 
-#### Blog Management
+### Blog Management
 
 **Create Blog: (POST)**
 ` /api/blogs `
+**Request Body:**
+```
+{
+  "title": "My First Blog",
+  "content": "This is the content of my blog."
+}
+```
 
 **Update Blog: (PATCH)**
 ` /api/blogs/:id `
+**Request Body:**
+```
+{
+  "title": "Updated Blog Title",
+  "content": "Updated content."
+}
+```
 
 **Delete Blog: (DELETE)**
 ` /api/blogs/:id `
@@ -57,7 +90,7 @@ It's a backend for a blogging platform where users can write, update, and delete
 ` /api/blogs/:id `
 Query Parameters Example: ` /api/blogs?search=technology&sortBy=createdAt&sortOrder=desc&filter=60b8f42f9c2a3c9b7cbd4f18 `
 
-#### Admin Actions
+### Admin Actions
 
 **Block User: (PATCH)**
 ` /api/admin/users/:userId/block `
