@@ -6,8 +6,8 @@ It's a backend for a blogging platform where users can write, update, and delete
 
 **Explanation video:**
 
-**Admin login credentials:**
-Email: Shahin123@gmail.com
+**Admin login credentials:** <br>
+Email: Shahin123@gmail.com <br>
 Password: Shahin123
 
 ## Key Features
@@ -41,7 +41,7 @@ Password: Shahin123
 ### Authentication
 
 **Register User: (POST)**
-` /api/auth/register `
+` /api/auth/register ` <br>
 **Request Body:**
 ```
 {
@@ -52,7 +52,7 @@ Password: Shahin123
 ```
 
 **Login User: (POST)**
-` /api/auth/login `
+` /api/auth/login ` <br>
 **Request Body:**
 ```
 {
@@ -64,7 +64,7 @@ Password: Shahin123
 ### Blog Management
 
 **Create Blog: (POST)**
-` /api/blogs `
+` /api/blogs ` <br>
 **Request Body:**
 ```
 {
@@ -74,8 +74,8 @@ Password: Shahin123
 ```
 
 **Update Blog: (PATCH)**
-` /api/blogs/:id `
-**Request Body:**
+` /api/blogs/:id ` <br>
+**Request Body:** 
 ```
 {
   "title": "Updated Blog Title",
