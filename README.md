@@ -7,8 +7,8 @@ It's a backend for a blogging platform where users can write, update, and delete
 **Explanation video:**
 
 **Admin login credentials:** <br>
-Email: Shahin123@gmail.com <br>
-Password: Shahin123
+Email: ` Shahin123@gmail.com ` <br>
+Password: ` Shahin123 `
 
 ## Key Features
 
@@ -87,7 +87,7 @@ Password: Shahin123
 ` /api/blogs/:id `
 
 **Get All Blogs: (GET)**
-` /api/blogs/:id `
+` /api/blogs/:id ` <br>
 Query Parameters Example: ` /api/blogs?search=technology&sortBy=createdAt&sortOrder=desc&filter=60b8f42f9c2a3c9b7cbd4f18 `
 
 ### Admin Actions
