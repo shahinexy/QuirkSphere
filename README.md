@@ -6,7 +6,7 @@ It's a backend for a blogging platform where users can write, update, and delete
 
 **Explanation video:**
 
-### Key Features
+## Key Features
 
 - **Authentication:**
   - Secure login system for all users.
@@ -27,7 +27,68 @@ It's a backend for a blogging platform where users can write, update, and delete
   - Sensitive data (e.g., passwords) is securely stored with encryption.
   - Validation checks prevent unauthorized or malicious actions.
 
-### Techonology used
- 1. Backend : Node.js, Express.js, TypeScript, Zod
+## Technology used
+ 1. Backend: Node.js, Express.js, TypeScript, Zod
  2. DataBase: MongoDB and Mongoose
  3. Tools: EsLint,Prettieer
+
+## Check API Endpoint
+
+#### Authentication
+
+**Register User: (POST)**
+` /api/auth/register `
+
+**Login User: (POST)**
+` /api/auth/login `
+
+#### Blog Management
+
+**Create Blog: (POST)**
+` /api/blogs `
+
+**Update Blog: (PATCH)**
+` /api/blogs/:id `
+
+**Delete Blog: (DELETE)**
+` /api/blogs/:id `
+
+**Get All Blogs: (GET)**
+` /api/blogs/:id `
+Query Parameters Example: ` /api/blogs?search=technology&sortBy=createdAt&sortOrder=desc&filter=60b8f42f9c2a3c9b7cbd4f18 `
+
+#### Admin Actions
+
+**Block User: (PATCH)**
+` /api/admin/users/:userId/block `
+
+**Delete Blog: (POST)**
+` /api/admin/blogs/:id `
+
+## Project Set-Up Instructions 
+
+#### 1. Clone the Repository
+```
+https://github.com/shahinexy/QuirkSphere.git
+```
+
+#### 2.  Install Dependencies
+```
+npm install 
+```
+#### 3. Set up Environment variables create an .env file in the root directory and include the following
+```
+NODE_ENV= development
+PORT=3000
+DATABASE_URL=mongodb://localhost:27017
+BCRYPT_SALT_ROUND=10
+JWT_ACCESS_SECRET=d2831ef014e61bc2b2dff99......
+JWT_REFRESH_SECRET=2fd0502b8531b16f74be87......
+JWT_ACCESS_EXPIRES_IN=1d
+JWT_REFRESH_EXPIRES_IN=365d
+```
+#### 4. Run the server in development mode
+```
+npm run dev 
+```
+
