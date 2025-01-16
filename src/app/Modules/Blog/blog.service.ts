@@ -57,7 +57,7 @@ const updateBlogFromDB = async (
     throw new Error("You are not author of this blog");
   }
 
-  const result = await BlogModel.findByIdAndUpdate(id, payload, { new: true });
+  const result = await BlogModel.findByIdAndUpdate(id, payload, { new: true, runValidators: true });
   return result;
 };
 

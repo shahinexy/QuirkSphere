@@ -21,7 +21,7 @@ const blockUserFromDB = async (id: string) => {
   const result = await UserRegisterModel.findByIdAndUpdate(
     id,
     { isBlocked: true },
-    { new: true }
+    { new: true, runValidators: true}
   );
   return result;
 };
