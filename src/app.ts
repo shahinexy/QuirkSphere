@@ -13,7 +13,7 @@ app.use(cors());
 app.use("/api", router);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Shining Blogs Server");
+  res.send("QuirkSphere Server");
 });
 
 // Global error handler

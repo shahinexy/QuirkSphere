@@ -35,7 +35,8 @@ const getSingleBlog = CatchAsync(async (req: Request, res: Response) => {
 
 const updateBlog = CatchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await BlogServices.updateBlogFromDB(id, req.body, req.user);
+  const userData = req.user as { userEmail: string; role: string };
+  const result = await BlogServices.updateBlogFromDB(id, req.body, userData);
 
   res.status(200).json({
     success: true,
@@ -46,8 +47,8 @@ const updateBlog = CatchAsync(async (req: Request, res: Response) => {
 
 const deleteBlog = CatchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  
-  const result = await BlogServices.deleteBlogFromDB(id, req.user);
+  const userData = req.user as { userEmail: string; role: string };
+  const result = await BlogServices.deleteBlogFromDB(id, userData);
 
   res.status(200).json({
     success: true,
