@@ -1,4 +1,5 @@
 import config from "../../config";
+import AppError from "../../error/AppError";
 import { TRegisterUser } from "./auth.intarface";
 import { UserRegisterModel } from "./auth.model";
 import bcrypt from "bcrypt";
@@ -11,7 +12,7 @@ const registerUserIntoDB = async (payload: TRegisterUser) => {
   });
 
   if (isEmailExists) {
-    throw new Error("This Email already exists");
+    throw new AppError(400, "This Email already exists");
   }
 
   const result = await UserRegisterModel.create(payload);
@@ -24,14 +25,14 @@ const loginUser = async (payload: TRegisterUser) => {
   const isUserExist = await UserRegisterModel.findOne({ email: payload.email });
 
   if (!isUserExist) {
-    throw new Error("User Not Found");
+    throw new AppError(404, "User Not Found");
   }
 
   // check if the user blocked
   const isBlocked = isUserExist?.isBlocked;
 
   if (isBlocked) {
-    throw new Error("This User is Blocked");
+    throw new AppError(401, "This User is Blocked");
   }
 
   // check if password matched

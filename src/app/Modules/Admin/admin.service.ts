@@ -1,3 +1,4 @@
+import AppError from "../../error/AppError";
 import { UserRegisterModel } from "../Auth/auth.model";
 import { BlogModel } from "../Blog/blog.model";
 
@@ -11,11 +12,11 @@ const blockUserFromDB = async (id: string) => {
   const isUserExist = await UserRegisterModel.findById(id);
 
   if (!isUserExist) {
-    throw new Error("User Not Found");
+    throw new AppError(404, "User Not Found");
   }
 
   if (isUserExist.isBlocked) {
-    throw new Error("User Already Blocked");
+    throw new AppError(401, "User Already Blocked");
   }
 
   const result = await UserRegisterModel.findByIdAndUpdate(
@@ -31,7 +32,7 @@ const deleteBlogFromDB = async (id: string) => {
   const isBlogExists = await BlogModel.findById(id);
 
   if (!isBlogExists) {
-    throw new Error("Blog Not Found");
+    throw new AppError(404, "Blog Not Found");
   }
 
   const result = await BlogModel.findByIdAndDelete(id);

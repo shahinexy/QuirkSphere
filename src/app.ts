@@ -13,7 +13,11 @@ app.use(cors());
 app.use("/api", router);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("QuirkSphere Server");
+    res.status(200).json({
+    success: true,
+    message: "QuirkSphere server is running",
+    timestamp: new Date().toISOString(),
+  });
 });
 
 // Global error handler

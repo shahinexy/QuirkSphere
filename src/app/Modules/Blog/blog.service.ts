@@ -1,4 +1,5 @@
 import QueryBuilder from "../../builder/QueryBuilder";
+import AppError from "../../error/AppError";
 import { USER_ROLE } from "../Auth/auth.constant";
 import { UserRegisterModel } from "../Auth/auth.model";
 import { TBlog } from "./blog.interface";
@@ -26,7 +27,7 @@ const getSingleBlogFromDB = async (id: string) => {
   const isBlogExists = await BlogModel.findById(id);
 
   if (!isBlogExists) {
-    throw new Error("Blog Not Found");
+    throw new AppError(404, "Blog Not Found");
   }
 
   const result = await BlogModel.findById(id).populate("author");
@@ -45,7 +46,7 @@ const updateBlogFromDB = async (
   const isBlogExists = await BlogModel.findById(id);
 
   if (!isBlogExists) {
-    throw new Error("Blog Not Found");
+    throw new AppError(404, "Blog Not Found");
   }
 
   // check if blog author
@@ -54,10 +55,13 @@ const updateBlogFromDB = async (
   const isAuthor = blogAuthor?.email === userData.userEmail;
 
   if (!isAuthor) {
-    throw new Error("You are not author of this blog");
+    throw new AppError(401, "You are not author of this blog");
   }
 
-  const result = await BlogModel.findByIdAndUpdate(id, payload, { new: true, runValidators: true });
+  const result = await BlogModel.findByIdAndUpdate(id, payload, {
+    new: true,
+    runValidators: true,
+  });
   return result;
 };
 
@@ -72,7 +76,7 @@ const deleteBlogFromDB = async (
   const isBlogExists = await BlogModel.findById(id);
 
   if (!isBlogExists) {
-    throw new Error("Blog Not Found");
+    throw new AppError(404, "Blog Not Found");
   }
 
   // check if blog author
@@ -81,7 +85,7 @@ const deleteBlogFromDB = async (
   const isAuthor = blogAuthor?.email === payload.userEmail;
 
   if (!isAuthor && payload.role !== USER_ROLE.admin) {
-    throw new Error("You are not author of this blog");
+    throw new AppError(401, "You are not author of this blog");
   }
 
   const result = await BlogModel.findByIdAndDelete(id);
