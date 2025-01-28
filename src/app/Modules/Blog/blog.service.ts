@@ -5,7 +5,12 @@ import { UserRegisterModel } from "../Auth/auth.model";
 import { TBlog } from "./blog.interface";
 import { BlogModel } from "./blog.model";
 
-const createBlogIntoDB = async (payload: TBlog) => {
+const createBlogIntoDB = async (userEmail: string, payload: TBlog) => {
+  const isUserExist = await UserRegisterModel.findOne({ email: userEmail });
+  if (!isUserExist) {
+    throw new AppError(404, "User not found");
+  }
+  payload.author = isUserExist?._id;
   const result = await BlogModel.create(payload);
   return result;
 };

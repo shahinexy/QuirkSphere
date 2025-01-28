@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post(
   "/",
-  Auth('user', 'admin'),
+  Auth('user'),
   ValidateRequest(BlogValidetions.createBlogSchemaValidation),
   BlogControllers.createBlog
 );
