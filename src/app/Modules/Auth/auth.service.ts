@@ -20,7 +20,6 @@ const registerUserIntoDB = async (payload: TRegisterUser) => {
 };
 
 const loginUser = async (payload: TRegisterUser) => {
-
   // check if user exist
   const isUserExist = await UserRegisterModel.findOne({ email: payload.email });
 
@@ -51,11 +50,11 @@ const loginUser = async (payload: TRegisterUser) => {
     role: isUserExist.role,
   };
 
-  const accessToken = jwt.sign(jwtPayliad, config.jwt_access_secret as string, {
+  const token = jwt.sign(jwtPayliad, config.jwt_access_secret as string, {
     expiresIn: config.jwt_access_expires_in,
   });
 
-  return { accessToken };
+  return { token };
 };
 
 export const UserServices = {

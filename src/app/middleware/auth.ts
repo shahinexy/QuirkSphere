@@ -8,7 +8,8 @@ import AppError from "../error/AppError";
 
 const Auth = (...requiredRole: TUserRole[]) => {
   return CatchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.headers.authorization;
+ 
+    const token = req.headers.authorization?.split(' ')[1];
 
     if (!token) {
       throw new AppError(401, "You are not authorize");
@@ -19,7 +20,7 @@ const Auth = (...requiredRole: TUserRole[]) => {
       config.jwt_access_secret as string
     ) as JwtPayload;
 
-    const { userEmail, role, iat } = decoded;
+    const { userEmail, role } = decoded;
 
     //check if user exist
     const isUserExist = await UserRegisterModel.findOne({

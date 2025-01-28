@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ErrorRequestHandler } from "express";
 import config from "../config";
@@ -60,8 +61,8 @@ const GlobalErrorHandler: ErrorRequestHandler = (err, req, res, next): any => {
   return res.status(statusCode).json({
     success: false,
     message,
-    errorSources,
-    err,
+    statusCode,
+    error: errorSources,
     stack: config.NODE_ENV === "development" ? err?.stack : null,
   });
 };

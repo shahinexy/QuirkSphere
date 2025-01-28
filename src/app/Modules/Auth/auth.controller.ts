@@ -7,6 +7,7 @@ const registerUser = CatchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     message: "User Register Successfully",
+    statusCode: 201,
     data: result,
   });
 });
@@ -16,7 +17,8 @@ const LoginUser = CatchAsync(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: "User Logged in Successfully",
+    message: "Logged in Successfully",
+    statusCode: 201,
     data: result,
   });
 });
